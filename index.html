@@ -245,7 +245,7 @@
           <span class="badge">Early access · Waitlist open</span>
           <h1>Create graphics<br/>by <span class="grad">chatting.</span></h1>
           <p class="lede">
-            Graphicly is your AI design partner. Describe what you need — a poster, a carousel, a brand template, a campaign — and watch it come to life on brand, in seconds. No templates. No learning curve. Just conversation.
+            Graphicly is your AI design partner. Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life on brand, in seconds. No templates. No learning curve. Just conversation.
           </p>
 
           <form
@@ -258,14 +258,19 @@
             data-version="5"
             min-width="400 500 600 700 800"
           >
-            <div class="form-row">
-              <input type="email" name="email_address" placeholder="you@studio.com" aria-label="Email address" required />
-              <button type="submit" data-element="submit">
-                <span>Join the waitlist →</span>
-              </button>
+            <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">
+              <div class="form-row">
+                <div class="formkit-field" style="flex:1; min-width:0; display:flex;">
+                  <input class="formkit-input" type="email" name="email_address" placeholder="you@studio.com" aria-label="Email address" required style="flex:1; min-width:0; background:transparent; border:0; outline:none; padding:16px 18px; font-size:16px; font-family:inherit; color:var(--ink);" />
+                </div>
+                <button type="submit" class="formkit-submit" data-element="submit">
+                  <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
+                  <span>Join the waitlist →</span>
+                </button>
+              </div>
             </div>
             <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-            <div class="form-meta">
+            <div data-element="guarantee" class="form-meta">
               <div class="avatars"><span></span><span></span><span></span><span></span></div>
               <span>Be one of the first to try Graphicly. We'll only email when it's live.</span>
             </div>
