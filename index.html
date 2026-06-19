@@ -107,14 +107,15 @@
     box-shadow: 0 20px 60px -20px rgba(160,32,240,.25), 0 1px 0 rgba(255,255,255,.8) inset;
     max-width: 520px;
   }
-  .form-row { display: flex; gap: 8px; align-items: stretch; }
-  .form-row input[type="email"] {
+  .form-card .formkit-fields { display: flex; gap: 8px; align-items: stretch; }
+  .form-card .formkit-field { flex: 1; min-width: 0; display: flex; }
+  .form-card .formkit-input {
     flex: 1; min-width: 0;
     background: transparent; border: 0; outline: none;
     padding: 16px 18px; font-size: 16px; font-family: inherit; color: var(--ink);
   }
-  .form-row input::placeholder { color: #9690a8; }
-  .form-row button {
+  .form-card .formkit-input::placeholder { color: #9690a8; }
+  .form-card .formkit-submit {
     border: 0; cursor: pointer;
     padding: 0 24px; border-radius: 14px;
     font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px;
@@ -124,8 +125,8 @@
     transition: background-position .4s ease, transform .15s ease;
     white-space: nowrap;
   }
-  .form-row button:hover { background-position: 100% 0; }
-  .form-row button:active { transform: scale(.98); }
+  .form-card .formkit-submit:hover { background-position: 100% 0; }
+  .form-card .formkit-submit:active { transform: scale(.98); }
   .form-meta { display: flex; align-items: center; gap: 16px; margin-top: 18px; font-size: 13px; color: var(--muted); }
   .form-meta .avatars { display: flex; }
   .avatars span {
@@ -218,8 +219,8 @@
     footer { flex-direction: column; gap: 12px; }
   }
   @media (max-width: 520px) {
-    .form-row { flex-direction: column; }
-    .form-row button { padding: 14px 24px; }
+    .form-card .formkit-fields { flex-direction: column; }
+    .form-card .formkit-submit { padding: 14px 24px; }
     .chip-1, .chip-3 { left: -2%; }
     .chip-2, .chip-4 { right: -2%; }
   }
@@ -245,32 +246,31 @@
           <span class="badge">Early access · Waitlist open</span>
           <h1>Create graphics<br/>by <span class="grad">chatting.</span></h1>
           <p class="lede">
-            Graphicly is your AI design partner. Describe what you need — a poster, a carousel, a brand template, a campaign — and watch it come to life on brand, in seconds. No templates. No learning curve. Just conversation.
+            Graphicly is your AI design partner. Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life on brand, in seconds. No templates. No learning curve. Just conversation.
           </p>
 
           <form
-            class="form-card seva-form formkit-form"
             action="https://app.kit.com/forms/9586058/subscriptions"
+            class="form-card seva-form formkit-form"
             method="post"
             data-sv-form="9586058"
             data-uid="6cca547372"
             data-format="inline"
             data-version="5"
+            data-options="{&quot;settings&quot;:{&quot;after_subscribe&quot;:{&quot;action&quot;:&quot;message&quot;,&quot;success_message&quot;:&quot;Success! Now check your email to confirm your subscription.&quot;,&quot;redirect_url&quot;:&quot;&quot;},&quot;analytics&quot;:{&quot;google&quot;:null,&quot;fathom&quot;:null,&quot;facebook&quot;:null,&quot;segment&quot;:null,&quot;pinterest&quot;:null,&quot;sparkloop&quot;:null,&quot;googletagmanager&quot;:null},&quot;modal&quot;:{&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;powered_by&quot;:{&quot;show&quot;:false,&quot;url&quot;:&quot;https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic&quot;},&quot;recaptcha&quot;:{&quot;enabled&quot;:false},&quot;return_visitor&quot;:{&quot;action&quot;:&quot;show&quot;,&quot;custom_content&quot;:&quot;&quot;},&quot;slide_in&quot;:{&quot;display_in&quot;:&quot;bottom_right&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15},&quot;sticky_bar&quot;:{&quot;display_in&quot;:&quot;top&quot;,&quot;trigger&quot;:&quot;timer&quot;,&quot;scroll_percentage&quot;:null,&quot;timer&quot;:5,&quot;devices&quot;:&quot;all&quot;,&quot;show_once_every&quot;:15}},&quot;version&quot;:&quot;5&quot;}"
             min-width="400 500 600 700 800"
           >
-            <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">
-              <div class="form-row">
-                <div class="formkit-field" style="flex:1; min-width:0; display:flex;">
-                  <input class="formkit-input" type="email" name="email_address" placeholder="you@studio.com" aria-label="Email address" required style="flex:1; min-width:0; background:transparent; border:0; outline:none; padding:16px 18px; font-size:16px; font-family:inherit; color:var(--ink);" />
-                </div>
-                <button type="submit" class="formkit-submit" data-element="submit">
-                  <div class="formkit-spinner" style="display:none;"><div></div><div></div><div></div></div>
-                  <span>Join the waitlist →</span>
-                </button>
-              </div>
-            </div>
             <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-            <div data-element="guarantee" class="form-meta">
+            <div data-element="fields" class="seva-fields formkit-fields">
+              <div class="formkit-field">
+                <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="you@studio.com" required="" type="email" />
+              </div>
+              <button data-element="submit" class="formkit-submit formkit-submit">
+                <div class="formkit-spinner"><div></div><div></div><div></div></div>
+                <span>Join the waitlist →</span>
+              </button>
+            </div>
+            <div data-element="disclaimer" class="form-meta formkit-disclaimer">
               <div class="avatars"><span></span><span></span><span></span><span></span></div>
               <span>Be one of the first to try Graphicly. We'll only email when it's live.</span>
             </div>
