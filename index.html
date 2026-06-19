@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphicly — Design Anything. Just Describe It</title>
+    <meta name="description" content="Create professional graphics through conversation. Graphicly turns your ideas into editable, brand-aware designs in seconds.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050816;
+            --surface: #0f172a;
+            --surface-light: #131d34;
+            --primary: #7c3aed;
+            --secondary: #06b6d4;
+            --accent: #a855f7;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,.08);
+            --container: 1280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .container {
+            width: min(92%, var(--container));
+            margin: auto;
+        }
+
+        /* =======================
+           BACKGROUND
+        ======================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(124,58,237,.25), transparent 40%),
+                radial-gradient(circle at 80% 10%, rgba(6,182,212,.15), transparent 35%),
+                radial-gradient(circle at 50% 90%, rgba(168,85,247,.18), transparent 40%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* =======================
+           NAVBAR
+        ======================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            background: rgba(5,8,22,.65);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--secondary)
+            );
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 14px;
+            transition: .3s;
+            font-weight: 600;
+        }
+
+        .btn-outline {
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            color: white;
+        }
+
+        .btn-primary {
+            padding: 12px 22px;
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--secondary)
+            );
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =======================
+           HERO
+        ======================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255,255,255,.03);
+            color: #cbd5e1;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5.6rem);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #7c3aed,
+                #06b6d4
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 36px;
+            max-width: 650px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .stat h3 {
+            font-size: 2rem;
+        }
+
+        .stat span {
+            color: var(--text-muted);
+            font-size: .95rem;
+        }
+
+        /* =======================
+           MOCKUP
+        ======================= */
+
+        .mockup {
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.04);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 40px 120px rgba(0,0,0,.5);
+        }
+
+        .mockup-header {
+            display: flex;
+            gap: 8px;
+            padding: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+        }
+
+        .mockup-body {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 540px;
+        }
+
+        .chat-panel {
+            border-right: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .message {
+            padding: 14px;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            font-size: .92rem;
+            line-height: 1.6;
+        }
+
+        .user {
+            background: rgba(124,58,237,.15);
+        }
+
+        .ai {
+            background: rgba(255,255,255,.04);
+        }
+
+        .canvas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .design-preview {
+            width: 320px;
+            height: 320px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #7c3aed,
+                #06b6d4
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px;
+            position: relative;
+        }
+
+        .design-preview::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255,255,255,.1);
+            border-radius: 50%;
+            top: -40px;
+            right: -50px;
+        }
+
+        .design-preview small {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .design-preview h3 {
+            font-size: 2rem;
+            margin-top: 12px;
+        }
+
+        .design-preview p {
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        /* =======================
+           RESPONSIVE
+        ======================= */
+
+        @media(max-width:1100px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .mockup {
+                max-width: 800px;
+                margin: auto;
+            }
+        }
+
+        @media(max-width:768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                padding: 60px 0;
+            }
+            .hero-stats {
+                flex-wrap: wrap;
+            }
+            .mockup-body {
+                grid-template-columns: 1fr;
+            }
+            .chat-panel {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <nav class="navbar">
+        <div class="container nav-wrapper">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                Graphicly
+            </div>
+
+            <div class="nav-links">
+                <a href="#">Features</a>
+                <a href="#">Templates</a>
+                <a href="#">Pricing</a>
+                <a href="#">FAQ</a>
+            </div>
+
+            <div class="nav-actions">
+                <a href="#" class="btn btn-outline">Sign In</a>
+                <a href="#" class="btn btn-primary">Start Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="badge">
+                        ✨ AI-Powered Graphic Design Platform
+                    </div>
+
+                    <h1>
+                        Design Anything.
+                        <span class="gradient-text">
+                            Just Describe It and see the Magic.
+                        </span>
+                    </h1>
+
+                    <p>
+                        Graphicly transforms simple conversations into professional, brand-aware graphics. Create editable designs, refine them through chat, and export pixel-perfect PNG, JPG, or PDF files in seconds.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-primary">
+                            Start Designing Free
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            Watch Demo
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3>10x</h3>
+                            <span>Faster Design Creation</span>
+                        </div>
+                        <div class="stat">
+                            <h3>100%</h3>
+                            <span>Editable Outputs</span>
+                        </div>
+                        <div class="stat">
+                            <h3>∞</h3>
+                            <span>Creative Possibilities</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mockup">
+                        <div class="mockup-header">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+
+                        <div class="mockup-body">
+                            <div class="chat-panel">
+                                <div class="message user">
+                                    Create an Instagram post announcing a 50% summer sale.
+                                </div>
+                                <div class="message ai">
+                                    Creating a modern promotional design using your brand colors...
+                                </div>
+                                <div class="message user">
+                                    Make the headline larger and use my logo.
+                                </div>
+                                <div class="message ai">
+                                    Updated. Logo added and typography enhanced.
+                                </div>
+                            </div>
+
+                            <div class="canvas">
+                                <div class="design-preview">
+                                    <small>Summer Sale</small>
+                                    <h3>50% OFF</h3>
+                                    <p>
+                                        Premium collection available for a limited time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
