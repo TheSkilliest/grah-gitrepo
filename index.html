@@ -1,964 +1,1097 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Graphicly — Create graphics by chatting. Launching soon.</title>
-<meta name="description" content="Graphicly is your AI graphics designer. Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life brand-aligned, in seconds. Join the list and be the first to know when we go live." />
-<meta name="keywords" content="AI design partner, design by chatting, conversational design, brand kit, carousels, scientific equations, multilingual design" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.graphicly.ai/" />
-<meta property="og:title" content="Graphicly — Create graphics by chatting" />
-<meta property="og:description" content="Your AI graphics designer. Describe what you need and watch it come to life — brand-aligned, in seconds. Join the list and be the first to know when we go live." />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="canonical" href="https://www.graphicly.ai/" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-<style>
-  :root {
-    --bg: #ffffff;
-    --bg-subtle: #f8f9fc;
-    --bg-muted: #f1f4f9;
-    --text-dark: #0a1628;
-    --text-main: #374151;
-    --text-muted: #6b7280;
-    --text-soft: #9ca3af;
-    --border: rgba(10,22,40,0.08);
-    --border-mid: rgba(10,22,40,0.14);
-
-    --grad-purple: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    --grad-pink:   linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
-    --grad-blue:   linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    --grad-orange: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
-    --grad-violet: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-    --grad-teal:   linear-gradient(135deg, #0891b2 0%, #10b981 100%);
-    --grad-spectrum: linear-gradient(135deg,#6366f1 0%,#8b5cf6 20%,#ec4899 45%,#f43f5e 60%,#f97316 80%,#fbbf24 100%);
-
-    --shadow-sm: 0 1px 3px rgba(10,22,40,.06), 0 1px 2px rgba(10,22,40,.04);
-    --shadow-md: 0 8px 24px rgba(10,22,40,.07), 0 2px 6px rgba(10,22,40,.04);
-    --shadow-lg: 0 24px 56px rgba(10,22,40,.10), 0 4px 12px rgba(10,22,40,.05);
-    --shadow-xl: 0 40px 80px rgba(10,22,40,.12);
-
-    --radius-sm: 10px;
-    --radius-md: 16px;
-    --radius-lg: 22px;
-    --radius-xl: 30px;
-
-    --max-w: 1200px;
-    --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text-main);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-  h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; color: var(--text-dark); line-height: 1.12; letter-spacing: -0.02em; }
-  a { color: inherit; text-decoration: none; }
-  img { max-width: 100%; display: block; }
-
-  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
-
-  .grad-text {
-    background: var(--grad-spectrum);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-
-  /* ========== NAV ========== */
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(255,255,255,.78);
-    backdrop-filter: saturate(180%) blur(14px);
-    -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
-  .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; color: var(--text-dark); }
-  .logo-mark {
-    width: 34px; height: 34px; border-radius: 10px;
-    background: var(--grad-spectrum);
-    box-shadow: 0 6px 18px -6px rgba(139,92,246,.5);
-    display: grid; place-items: center;
-    color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 19px;
-    letter-spacing: -0.02em;
-  }
-  .nav-links { display: flex; align-items: center; gap: 28px; }
-  .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-main); transition: color .2s var(--ease); }
-  .nav-links a:hover { color: var(--text-dark); }
-  .nav-cta {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 18px; border-radius: 999px;
-    background: var(--text-dark); color: #fff;
-    font-weight: 600; font-size: 14px;
-    transition: transform .2s var(--ease);
-  }
-  .nav-cta:hover { transform: translateY(-1px); }
-  @media (max-width: 720px) { .nav-links { display: none; } }
-
-  /* ========== HERO ========== */
-  .hero {
-    position: relative;
-    padding: clamp(20px, 2.5vw, 36px) 0 clamp(28px, 3.5vw, 48px);
-    overflow: hidden;
-    min-height: calc(100vh - 72px);
-    display: flex; align-items: center;
-  }
-  .hero::before {
-    content: ""; position: absolute; inset: -10% -10% auto -10%; height: 55%; pointer-events: none; z-index: 0;
-    background:
-      radial-gradient(40% 50% at 15% 0%, rgba(139,92,246,.12), transparent 70%),
-      radial-gradient(40% 50% at 85% 5%, rgba(244,63,94,.10), transparent 70%);
-    -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
-  }
-  .hero-center {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    max-width: 820px; margin: 0 auto;
-  }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 7px 14px; border-radius: 999px;
-    background: #fff; border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    font-size: 12px; font-weight: 600; color: var(--text-dark);
-    letter-spacing: .04em; text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.18); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.25); opacity: .7; } }
-
-  h1.hero-title {
-    font-size: clamp(38px, 5.6vw, 68px); font-weight: 800;
-    margin-bottom: 14px;
-  }
-  .hero-tagline {
-    font-size: clamp(15px, 1.3vw, 17px); color: var(--text-muted);
-    max-width: 620px; margin: 0 auto 26px; line-height: 1.55;
-  }
-  .form-label {
-    font-family: 'Outfit', sans-serif; font-weight: 700;
-    font-size: clamp(18px, 1.6vw, 22px); color: var(--text-dark);
-    margin-bottom: 12px;
-  }
-  .hero-more {
-    margin-top: 22px; max-width: 640px;
-    display: flex; flex-direction: column; gap: 8px;
-    text-align: center;
-  }
-  .hero-more p { color: var(--text-muted); font-size: 14.5px; line-height: 1.6; }
-  .hero-more p strong { color: var(--text-dark); font-weight: 600; }
-
-  /* Form */
-  .form-card {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: 18px; padding: 8px;
-    box-shadow: var(--shadow-md);
-    max-width: 540px; width: 100%; margin: 0 auto;
-    display: flex; flex-direction: column; align-items: stretch;
-    transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
-  }
-  .form-card:focus-within { box-shadow: var(--shadow-lg); border-color: var(--border-mid); }
-  .form-card .formkit-fields { display: flex; gap: 8px; align-items: center; }
-  .form-card .formkit-field { flex: 1; min-width: 0; display: flex; align-items: center; }
-  .form-card .formkit-input {
-    flex: 1; min-width: 0;
-    background: transparent; border: 0; outline: none;
-    padding: 14px 18px; font-size: 16px; font-family: inherit; color: var(--text-dark);
-  }
-  .form-card .formkit-input::placeholder { color: var(--text-soft); }
-  .form-card .formkit-submit {
-    border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
-    padding: 14px 22px; border-radius: 12px;
-    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px;
-    color: #fff; letter-spacing: -0.01em;
-    background: var(--grad-spectrum);
-    background-size: 200% 200%;
-    transition: background-position .5s var(--ease), transform .15s var(--ease);
-    white-space: nowrap;
-  }
-  .form-card .formkit-submit:hover { background-position: 100% 0; }
-  .form-card .formkit-submit:active { transform: scale(.98); }
-  .form-meta {
-    display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 18px;
-    font-size: 13px; color: var(--text-muted);
-  }
-  .avatars { display: flex; }
-  .avatars span { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; box-shadow: var(--shadow-sm); }
-  .avatars span:nth-child(1){ background: var(--grad-purple); margin-left: 0; }
-  .avatars span:nth-child(2){ background: var(--grad-pink); }
-  .avatars span:nth-child(3){ background: var(--grad-blue); }
-  .avatars span:nth-child(4){ background: var(--grad-orange); }
-  .formkit-alert { list-style: none; padding: 0; margin: 12px 4px 0; font-size: 14px; text-align: center; }
-  .formkit-alert-error { color: #e11d48; }
-  .formkit-alert-success { color: #059669; }
-
-  /* ========== CHAT MOCK (inside How it works) ========== */
-  .chat-wrap { position: relative; max-width: min(420px, 92vw); margin: 48px auto 0; }
-  .chat-mock {
-    position: relative;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: var(--shadow-xl);
-    overflow: hidden;
-    width: 100%;
-  }
-  .chat-head {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-subtle);
-  }
-  .chat-dots { display: flex; gap: 5px; }
-  .chat-dots span { width: 9px; height: 9px; border-radius: 50%; background: #e5e7eb; }
-  .chat-dots span:nth-child(1) { background: #f87171; }
-  .chat-dots span:nth-child(2) { background: #fbbf24; }
-  .chat-dots span:nth-child(3) { background: #34d399; }
-  .chat-title { font-size: 12px; font-weight: 600; color: var(--text-dark); margin-left: 6px; }
-  .chat-badge {
-    margin-left: auto; font-size: 10px; font-weight: 600; color: #fff;
-    padding: 3px 8px; border-radius: 999px; background: var(--grad-spectrum);
-    letter-spacing: .04em; text-transform: uppercase;
-  }
-  .chat-body {
-    padding: 18px 16px;
-    display: flex; flex-direction: column; gap: 12px;
-    min-height: 260px;
-    background:
-      radial-gradient(120% 80% at 100% 0%, rgba(139,92,246,.05), transparent 60%),
-      radial-gradient(120% 80% at 0% 100%, rgba(236,72,153,.05), transparent 60%),
-      #fff;
-  }
-  .msg { display: flex; gap: 9px; max-width: 90%; }
-  .msg .avatar {
-    width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
-    display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff;
-  }
-  .msg.user .avatar { background: var(--grad-blue); }
-  .msg.ai .avatar { background: var(--grad-spectrum); }
-  .bubble {
-    padding: 9px 12px; border-radius: 12px;
-    font-size: 13px; line-height: 1.45;
-    background: var(--bg-muted); color: var(--text-dark);
-  }
-  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
-  .msg.user .bubble { background: var(--text-dark); color: #fff; border-bottom-right-radius: 4px; }
-  .msg.ai .bubble { border-bottom-left-radius: 4px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-  .chat-input {
-    border-top: 1px solid var(--border);
-    padding: 10px 12px;
-    display: flex; align-items: center; gap: 9px;
-    background: #fff;
-  }
-  .chat-input input {
-    flex: 1; border: 0; outline: none; font-size: 13px; font-family: inherit; color: var(--text-dark);
-    background: transparent;
-  }
-  .chat-input button {
-    width: 30px; height: 30px; border-radius: 9px; border: 0;
-    background: var(--grad-spectrum); color: #fff; cursor: pointer;
-    display: grid; place-items: center; font-size: 13px;
-  }
-
-  /* ========== SECTIONS ========== */
-  section { padding: clamp(64px, 8vw, 110px) 0; }
-  .section-eyebrow { display: block; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: transparent; background: var(--grad-spectrum); -webkit-background-clip: text; background-clip: text; margin: 0 auto 14px; }
-  .section-title { font-size: clamp(32px, 4.2vw, 52px); font-weight: 800; max-width: 820px; margin: 0 auto 18px; text-align: center; }
-  .section-sub { font-size: clamp(16px, 1.3vw, 18px); color: var(--text-muted); max-width: 640px; margin: 0 auto 56px; text-align: center; }
-
-  /* Comparison — The Graphicly way vs Old way */
-  .compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 920px; margin: 0 auto; }
-  .compare-card {
-    position: relative; overflow: hidden;
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 26px; box-shadow: var(--shadow-sm);
-    display: flex; flex-direction: column;
-  }
-  .compare-card.good::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--grad-spectrum); }
-  .compare-card.bad::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-mid); }
-  .compare-card h3 { font-size: clamp(19px, 2vw, 23px); font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-  .compare-card.good h3 { color: var(--text-dark); }
-  .compare-card.bad h3 { color: var(--text-muted); }
-  .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  .compare-card li { display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; color: var(--text-dark); line-height: 1.5; }
-  .compare-card li .icon {
-    width: 21px; height: 21px; border-radius: 6px; flex-shrink: 0;
-    display: grid; place-items: center; font-size: 12px; font-weight: 700;
-  }
-  .compare-card.good li .icon { background: var(--grad-spectrum); color: #fff; }
-  .compare-card.bad li .icon { background: var(--bg-muted); color: var(--text-muted); }
-  @media (max-width: 720px) {
-    .compare-grid { grid-template-columns: 1fr; }
-  }
-
-  /* How it works — centered intro */
-  .how-head { text-align: center; }
-
-  /* Chat showcase row: chat + supporting copy */
-  .chat-showcase {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: 40px; align-items: center;
-    max-width: 980px; margin: 56px auto 0;
-    text-align: left;
-  }
-  .chat-showcase .chat-wrap { margin: 0; max-width: 400px; }
-  .chat-side h3 {
-    font-size: clamp(22px, 2.2vw, 29px); font-weight: 800;
-    margin-bottom: 12px; letter-spacing: -0.02em;
-  }
-  .chat-side p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
-  .chat-side ul { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 9px; }
-  .chat-side ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; color: var(--text-dark); }
-  .chat-side ul li::before {
-    content: "✦"; color: transparent; background: var(--grad-spectrum);
-    -webkit-background-clip: text; background-clip: text;
-    font-weight: 800; font-size: 15px; line-height: 1.4;
-  }
-  @media (max-width: 860px) {
-    .chat-showcase { grid-template-columns: 1fr; text-align: center; gap: 32px; }
-    .chat-showcase .chat-wrap { margin: 0 auto; }
-    .chat-side ul li { justify-content: center; text-align: left; }
-  }
-
-  /* Success state */
-  .form-success {
-    background: #fff; border: 1px solid var(--border); border-radius: 18px;
-    padding: 28px 24px; max-width: 540px; margin: 0 auto;
-    box-shadow: var(--shadow-md); text-align: center;
-  }
-  .form-success .check {
-    width: 52px; height: 52px; border-radius: 50%;
-    background: var(--grad-spectrum); color: #fff;
-    display: grid; place-items: center; font-size: 24px; font-weight: 700;
-    margin: 0 auto 14px;
-  }
-  .form-success h4 { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
-  .form-success p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
-
-  /* 3 steps */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .step {
-    background: #fff; border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 36px 30px 32px;
-    transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
-  }
-  .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
-  .step .num {
-    font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(72px, 7vw, 96px);
-    line-height: 0.9; letter-spacing: -0.04em;
-    background: var(--grad-spectrum);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    margin-bottom: 18px; display: block;
-  }
-  .step:nth-child(1) .num { background: var(--grad-purple); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .step:nth-child(2) .num { background: var(--grad-pink); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .step:nth-child(3) .num { background: var(--grad-orange); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .step h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
-  .step p { color: var(--text-muted); font-size: 15px; }
-
-  /* Features bento — equal-sized tiles */
-  .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .card {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 30px 28px; position: relative; overflow: hidden;
-    display: flex; flex-direction: column;
-    min-height: 240px;
-    transition: transform .35s var(--ease), box-shadow .35s var(--ease);
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .card .icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: grid; place-items: center; color: #fff; font-size: 18px;
-    margin-bottom: 18px;
-  }
-  .card h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-  .card p { color: var(--text-muted); font-size: 14.5px; }
-
-  .ic-1 { background: var(--grad-purple); }
-  .ic-2 { background: var(--grad-pink); }
-  .ic-3 { background: var(--grad-blue); }
-  .ic-4 { background: var(--grad-orange); }
-  .ic-5 { background: var(--grad-violet); }
-  .ic-6 { background: var(--grad-teal); }
-  .ic-7 { background: var(--grad-spectrum); }
-
-  /* AI power grid */
-  .ai-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-  .ai-grid .card { min-height: 200px; }
-  @media (max-width: 960px) {
-    .ai-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 560px) {
-    .ai-grid { grid-template-columns: 1fr; }
-  }
-
-  .lang-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-  .lang-chips span {
-    padding: 8px 14px; border-radius: 999px; background: var(--bg-muted);
-    border: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--text-dark);
-    font-family: 'Outfit', sans-serif;
-  }
-  .lang-chips span.ar { font-size: 16px; }
-
-  /* Template grid mini */
-  .tpl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 22px; }
-  .tpl {
-    aspect-ratio: 1/1; border-radius: 12px; position: relative; overflow: hidden;
-    display: grid; place-items: center; color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12px;
-    text-align: center; padding: 8px; line-height: 1.15;
-  }
-  .tpl:nth-child(1) { background: var(--grad-purple); }
-  .tpl:nth-child(2) { background: var(--grad-pink); }
-  .tpl:nth-child(3) { background: var(--grad-blue); }
-  .tpl:nth-child(4) { background: var(--grad-orange); }
-  .tpl:nth-child(5) { background: var(--grad-violet); }
-  .tpl:nth-child(6) { background: var(--grad-teal); }
-  .tpl:nth-child(7) { background: var(--grad-spectrum); }
-  .tpl:nth-child(8) { background: linear-gradient(135deg, #0a1628, #374151); }
-
-  /* Export chips */
-  .export-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-  .export-chips .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 9px 14px; border-radius: 10px; background: var(--bg-muted);
-    border: 1px solid var(--border);
-    font-family: 'Fira Code', monospace; font-size: 12.5px; font-weight: 500; color: var(--text-dark);
-  }
-  .export-chips .pill::before {
-    content: ""; width: 8px; height: 8px; border-radius: 2px;
-  }
-  .export-chips .pill:nth-child(1)::before { background: #f97316; }
-  .export-chips .pill:nth-child(2)::before { background: #3b82f6; }
-  .export-chips .pill:nth-child(3)::before { background: #ec4899; }
-
-  /* Carousel mock */
-  .carousel-mock { display: flex; gap: 8px; margin-top: 22px; overflow: hidden; }
-  .slide {
-    flex: 1; aspect-ratio: 4/5; border-radius: 12px;
-    display: grid; place-items: end; padding: 12px;
-    color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11px;
-  }
-  .slide:nth-child(1) { background: var(--grad-violet); }
-  .slide:nth-child(2) { background: var(--grad-pink); }
-  .slide:nth-child(3) { background: var(--grad-orange); }
-  .slide:nth-child(4) { background: var(--grad-blue); }
-  .slide:nth-child(5) { background: var(--grad-teal); }
-
-  /* Equation mock */
-  .eq-mock {
-    margin-top: 20px; padding: 22px; border-radius: 14px;
-    background: var(--bg-subtle); border: 1px solid var(--border);
-    font-family: 'Fira Code', monospace; font-size: 15px; color: var(--text-dark);
-    text-align: center;
-  }
-  .eq-mock .big { font-size: 22px; display: block; margin: 8px 0; }
-
-  /* ========== FAQ ========== */
-  .faq-wrap { text-align: center; }
-  .faq-wrap .section-title, .faq-wrap .section-sub { margin-left: auto; margin-right: auto; }
-  .faq-list {
-    display: flex; flex-direction: column; gap: 14px;
-    max-width: 760px; margin: 0 auto; text-align: left;
-  }
-  details {
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md);
-    padding: 20px 24px;
-    transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
-  }
-  details[open] { border-color: var(--border-mid); box-shadow: var(--shadow-md); }
-  summary {
-    list-style: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between;
-    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; color: var(--text-dark);
-  }
-  summary::-webkit-details-marker { display: none; }
-  summary::after {
-    content: "+"; font-size: 24px; font-weight: 400; color: var(--text-muted);
-    transition: transform .25s var(--ease);
-  }
-  details[open] summary::after { transform: rotate(45deg); }
-  details p { margin-top: 12px; color: var(--text-muted); font-size: 15px; }
-
-  /* Templates showcase */
-  .tpl-showcase { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 8px; }
-  .tpl-showcase .tpl { aspect-ratio: 4/5; }
-  .tpl-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; justify-content: center; }
-  .tpl-tags span {
-    padding: 8px 14px; border-radius: 999px; background: #fff;
-    border: 1px solid var(--border); font-size: 13px; font-weight: 600; color: var(--text-dark);
-    font-family: 'Outfit', sans-serif; box-shadow: var(--shadow-sm);
-  }
-  @media (max-width: 720px) {
-    .tpl-showcase { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  /* ========== CTA — light, matches hero ========== */
-  .cta-section {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    padding: clamp(40px, 5vw, 64px) clamp(24px, 4vw, 56px);
-    text-align: center; color: var(--text-dark);
-    position: relative; overflow: hidden;
-    margin-bottom: 56px;
-    box-shadow: var(--shadow-md);
-  }
-  .cta-section > * { position: relative; z-index: 1; }
-  .cta-section h2 { color: var(--text-dark); font-size: clamp(28px, 3.6vw, 44px); margin-bottom: 12px; }
-  .cta-section .cta-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; color: var(--text-dark); margin-bottom: 12px; }
-  .cta-section p { color: var(--text-muted); font-size: 16px; max-width: 560px; margin: 0 auto 28px; }
-  .cta-section .form-card { margin: 0 auto; }
-
-  /* ========== FOOTER ========== */
-  footer {
-    padding: 32px 0 48px;
-    border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 16px;
-    color: var(--text-muted); font-size: 13.5px;
-  }
-
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 960px) {
-    .chat-wrap { max-width: 100%; }
-    .steps { grid-template-columns: 1fr; }
-    .bento { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 560px) {
-    .form-card .formkit-fields { flex-direction: column; }
-    .form-card .formkit-submit { padding: 14px 22px; }
-    .bento { grid-template-columns: 1fr; }
-    .card { min-height: 0; }
-    .tpl-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav-cta { padding: 9px 14px; font-size: 13px; }
-  }
-</style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav>
-    <div class="container nav-inner">
-      <a href="/" class="logo"><span class="logo-mark">G</span> Graphicly</a>
-      <div class="nav-links">
-        <a href="#how">How it works</a>
-        <a href="#ai-power">Features</a>
-        <a href="#templates">Templates</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <a href="#join" class="nav-cta">Subscribe →</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container">
-      <div class="hero-center">
-        <span class="eyebrow"><span class="dot"></span> Launching soon</span>
-        <h1 class="hero-title">Create graphics<br/>by <span class="grad-text">chatting.</span></h1>
-        <p class="hero-tagline"><strong style="color:var(--text-dark);font-weight:600;">Graphicly is your AI graphics designer.</strong> Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life brand-aligned, in seconds.</p>
-
-        <div class="form-label" id="join">Join our mailing list</div>
-        <form
-          action="https://app.kit.com/forms/9586058/subscriptions"
-          class="form-card seva-form formkit-form js-subscribe-form"
-          method="post"
-          data-sv-form="9586058"
-          data-uid="6cca547372"
-          data-format="inline"
-          data-version="5"
-          data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing! We will keep you updated and let you know as soon as we go live.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":""},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
-          min-width="400 500 600 700 800"
-        >
-          <div data-element="fields" class="seva-fields formkit-fields">
-            <div class="formkit-field">
-              <input class="formkit-input" name="email_address" aria-label="Email address" placeholder="you@brand.com" required type="email" />
-            </div>
-            <button data-element="submit" class="formkit-submit">
-              <div class="formkit-spinner"><div></div><div></div><div></div></div>
-              <span>Subscribe</span>
-            </button>
-          </div>
-          <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-        </form>
-
-        <div class="hero-more">
-          <p>Be the first to know when we go live — no spam, ever.</p>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- 3 STEPS -->
-  <section id="how">
-    <div class="container">
-      <div class="how-head">
-        <span class="section-eyebrow">How it works</span>
-        <h2 class="section-title">From idea to graphic in <span class="grad-text">3 simple steps.</span></h2>
-        <p class="section-sub">Skip the canvas. Skip the tutorials. Iterate with Graphicly like you would with a designer — in plain words.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <span class="num">1</span>
-          <h3>Pick a starting point</h3>
-          <p>Start from a blank canvas or one of our ready-made templates. Either way, just bring your idea.</p>
-        </div>
-        <div class="step">
-          <span class="num">2</span>
-          <h3>Just describe it</h3>
-          <p>Type what you want, in any language. "A bold post for our weekend sale, playful headline." That's it.</p>
-        </div>
-        <div class="step">
-          <span class="num">3</span>
-          <h3>Refine, export, ship</h3>
-          <p>Tweak with another sentence. Generate variations. Export as JPG, PNG or PDF. Done.</p>
-        </div>
-      </div>
-
-      <!-- CHAT SHOWCASE -->
-      <div class="chat-showcase">
-        <div class="chat-wrap">
-          <aside class="chat-mock" aria-hidden="true">
-            <div class="chat-head">
-              <div class="chat-dots"><span></span><span></span><span></span></div>
-              <div class="chat-title">Graphicly · New design</div>
-              <span class="chat-badge">Live</span>
-            </div>
-            <div class="chat-body">
-              <div class="msg user">
-                <div class="avatar">M</div>
-                <div class="bubble">Create a 5-slide Instagram carousel on "3 habits that boost focus" — use our brand colors.</div>
-              </div>
-              <div class="msg ai">
-                <div class="avatar">G</div>
-                <div class="bubble">Done ✦ 5 slides at 1080×1350, brand-aligned. Cover + 3 habits + CTA. Want to tweak anything?</div>
-              </div>
-              <div class="msg user">
-                <div class="avatar">M</div>
-                <div class="bubble">Make the cover headline bolder and swap slide 3's layout to a big quote.</div>
-              </div>
-              <div class="msg ai">
-                <div class="avatar">G</div>
-                <div class="bubble">Updated. Bolder cover, slide 3 is now a quote layout. Anything else?</div>
-              </div>
-              <div class="msg user">
-                <div class="avatar">M</div>
-                <div class="bubble">Change the CTA text on slide 5 to "Save this for later" and warm up the color palette.</div>
-              </div>
-              <div class="msg ai">
-                <div class="avatar">G</div>
-                <div class="bubble">Done. New CTA in place, warmer palette applied across all 5 slides. Ready to export as PNG or PDF.</div>
-              </div>
-            </div>
-            <div class="chat-input">
-              <input type="text" placeholder="Describe your next design…" />
-              <button aria-label="Send">→</button>
-            </div>
-          </aside>
-        </div>
-
-        <div class="chat-side">
-          <h3>Design at the <span class="grad-text">speed of thought.</span></h3>
-          <p>Graphicly works the way you think. Start with a single sentence, then refine through conversation — change the headline, swap a layout, warm up the palette, generate more variations. No menus to learn, no layers to untangle.</p>
-          <ul>
-            <li>Spin up carousels, posts, ads, and presentations from a prompt</li>
-            <li>Edit copy, colors, and layouts with follow-up instructions</li>
-            <li>Stay brand-aligned automatically across every output</li>
-            <li>Export as JPG, PNG or PDF — ready to ship</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
-
-  <!-- EXPERIENCE THE POWER OF OUR AI -->
-  <section id="ai-power">
-    <div class="container">
-      <span class="section-eyebrow">Experience the power of our AI</span>
-      <h2 class="section-title">Describe it. See it. <span class="grad-text">Post it.</span></h2>
-      <p class="section-sub">From a single sentence to a complete design — Graphicly handles the details so you don't have to.</p>
-
-      <div class="ai-grid">
-        <div class="card">
-          <div class="icon ic-1">✍️</div>
-          <h3>Tell as little or as much</h3>
-          <p>Share a rough idea or a full brief. Graphicly understands context and turns your words into a polished visual.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-2">∑</div>
-          <h3>Scientific & complex notation</h3>
-          <p>Math equations, formulas, technical symbols, and complex scripts render cleanly inside every design.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-3">🎨</div>
-          <h3>Your content, perfectly placed</h3>
-          <p>Watch your text, images, and data flow into templates automatically — aligned, styled, and ready to share.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-4">A</div>
-          <h3>Huge font library</h3>
-          <p>Access a wide range of font styles — from clean modern typefaces to expressive display fonts for every mood.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES BENTO -->
-  <section id="features" style="background: var(--bg-subtle);">
-    <div class="container">
-      <span class="section-eyebrow">The Graphicly advantage</span>
-      <h2 class="section-title">Turn Ideas Into Graphics — <span class="grad-text">Just by Talking.</span></h2>
-      <p class="section-sub">Made for creators, founders, marketers, small business owners, LinkedIn scientific content creators, religious content creators who need beautiful, ready-to-use, brand-aligned graphics — fast.</p>
-
-      <div class="bento">
-        <div class="card">
-          <div class="icon ic-1">💬</div>
-          <h3>Just describe it</h3>
-          <p>Type what you want. Iterate like you would with a designer — in plain words. "Make it bolder." "Swap the headline." Done in seconds.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-2">✦</div>
-          <h3>Brand-aligned, always</h3>
-          <p>Lock your colors, fonts and logos once. Every output stays unmistakably you — across every channel.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-5">⌘</div>
-          <h3>Engaging carousels</h3>
-          <p>Scroll-stopping LinkedIn and Instagram carousels in one prompt — fully formatted, slide by slide, ready to post.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-6">⚡</div>
-          <h3>Bulk variations</h3>
-          <p>Need 5 versions of one post? 10 posts from one template? Ask once — get a whole batch, instantly.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-3">🖼</div>
-          <h3>Bring your own assets</h3>
-          <p>Drop in photos, product shots, illustrations or paste a link. Graphicly composes them into the design for you.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon ic-4">↧</div>
-          <h3>Multiple export files</h3>
-          <p>One click to JPG, PNG or crisp vector PDF. Ready for web, social, print or presentations.</p>
-          <div class="export-chips">
-            <span class="pill">JPG</span>
-            <span class="pill">PNG</span>
-            <span class="pill">PDF</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEMPLATES SHOWCASE -->
-  <section id="templates">
-    <div class="container">
-      <span class="section-eyebrow">Templates</span>
-      <h2 class="section-title">Start blank, or pick a <span class="grad-text">ready-made template.</span></h2>
-      <p class="section-sub">A growing library of unique, engaging templates — continuously updated, covering every purpose, every audience, every language. Just bring your content; Graphicly does the design.</p>
-
-
-      <div class="tpl-tags">
-        <span>Continuously updated</span>
-        <span>Any language · RTL · CJK</span>
-        <span>Unique, engaging designs</span>
-        <span>Built for every purpose</span>
-        <span>Complex scientific equations</span>
-        <span>Perfect for LinkedIn science content</span>
-        <span>Marketing · Education · Personal brand</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- THE GRAPHICLY WAY -->
-  <section id="graphicly-way">
-    <div class="container">
-      <span class="section-eyebrow">The Graphicly way</span>
-      <h2 class="section-title">The Graphicly way to do <span class="grad-text">graphic design and static content creation</span></h2>
-      <p class="section-sub">Why wrestle with design tools when you can simply describe what you want?</p>
-
-      <div class="compare-grid">
-        <div class="compare-card good">
-          <h3>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span class="grad-text">The Graphicly way</span>
-          </h3>
-          <ul>
-            <li><span class="icon">✓</span> Describe what you want in plain language</li>
-            <li><span class="icon">✓</span> Iterate instantly with follow-up messages</li>
-            <li><span class="icon">✓</span> Stay brand-aligned automatically across every output</li>
-            <li><span class="icon">✓</span> Export ready-to-post files in seconds</li>
-          </ul>
-        </div>
-        <div class="compare-card bad">
-          <h3>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            The Old Way
-          </h3>
-          <ul>
-            <li><span class="icon">✕</span> Start from a blank canvas or rigid template</li>
-            <li><span class="icon">✕</span> Spend hours in menus, layers, and toolbars</li>
-            <li><span class="icon">✕</span> Manually apply colors, fonts, and assets every time</li>
-            <li><span class="icon">✕</span> Switch between multiple tools to finalize and export</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ — centered -->
-  <section id="faq" style="background: var(--bg-subtle);">
-    <div class="container faq-wrap">
-      <span class="section-eyebrow">FAQ</span>
-      <h2 class="section-title">Questions, <span class="grad-text">answered.</span></h2>
-      <p class="section-sub">If something is still unclear, email us and we'll be happy to help.</p>
-
-      <div class="faq-list">
-        <details open>
-          <summary>When is Graphicly launching?</summary>
-          <p>Graphicly is currently in pre-launch. Join our email list and we'll notify you as soon as we go live.</p>
-        </details>
-        <details>
-          <summary>What is Graphicly?</summary>
-          <p>Graphicly is an AI-powered design platform that turns ideas into professional visual content through simple conversation.</p>
-        </details>
-        <details>
-          <summary>How does Graphicly work?</summary>
-          <p>Simply describe what you want to create. Graphicly generates the design, lets you refine it through conversation, and exports it in ready-to-use formats.</p>
-        </details>
-        <details>
-          <summary>Do I need any design skills?</summary>
-          <p>No. If you can describe an idea, you can create a design. There are no complicated tools, layers, or design software to learn.</p>
-        </details>
-        <details>
-          <summary>What can I create with Graphicly?</summary>
-          <p>Social media posts, carousels, ads, banners, presentations, educational content, business graphics, and much more.</p>
-        </details>
-        <details>
-          <summary>Can I start from templates?</summary>
-          <p>Yes. Start from a blank canvas or choose from a growing library of professionally designed templates that can be customized through conversation.</p>
-        </details>
-        <details>
-          <summary>Can I generate multiple variations at once?</summary>
-          <p>Yes. Generate multiple versions of a design, create content variations, or produce entire batches of graphics from a single prompt.</p>
-        </details>
-        <details>
-          <summary>Does Graphicly support multiple languages?</summary>
-          <p>Yes. You can create designs in virtually any language, including multilingual content and complex writing systems.</p>
-        </details>
-        <details>
-          <summary>Can it handle complex content and typography?</summary>
-          <p>Yes. Graphicly supports complex scripts, right-to-left languages, scientific equations, mathematical notation, technical content, and structured layouts.</p>
-        </details>
-        <details>
-          <summary>Can I use my own branding and assets?</summary>
-          <p>Yes. Upload your logos, images, brand colors, fonts, and other assets to keep every design consistent with your brand.</p>
-        </details>
-        <details>
-          <summary>What formats can I export?</summary>
-          <p>Designs can be exported as JPG, PNG, and PDF for social media, web, presentations, and print.</p>
-        </details>
-        <details>
-          <summary>Will new templates be added over time?</summary>
-          <p>Absolutely. Our template library will continue expanding with new templates, categories, industries, and use cases.</p>
-        </details>
-        <details>
-          <summary>How much will Graphicly cost?</summary>
-          <p>Pricing will be announced closer to launch. Our goal is to make Graphicly accessible and affordable for creators, marketers, businesses, and agencies.</p>
-        </details>
-        <details>
-          <summary>How will I know when Graphicly launches?</summary>
-          <p>Join the email list and we'll send you an update as soon as Graphicly becomes available.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section>
-    <div class="container">
-      <div class="cta-section">
-        <h2>Be the first to <span class="grad-text">know when we go live.</span></h2>
-        <p>Join our mailing list and we'll let you know the moment Graphicly opens its doors.</p>
-
-        <form
-          action="https://app.kit.com/forms/9586058/subscriptions"
-          class="form-card seva-form formkit-form js-subscribe-form"
-          method="post"
-          data-sv-form="9586058"
-          data-uid="6cca547372"
-          data-format="inline"
-          data-version="5"
-          data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing! We will keep you updated and let you know as soon as we go live.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":""},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
-        >
-          <div data-element="fields" class="seva-fields formkit-fields">
-            <div class="formkit-field">
-              <input class="formkit-input" name="email_address" aria-label="Email address" placeholder="you@brand.com" required type="email" />
-            </div>
-            <button data-element="submit" class="formkit-submit">
-              <div class="formkit-spinner"><div></div><div></div><div></div></div>
-              <span>Subscribe</span>
-            </button>
-          </div>
-          <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Show a clear success state after a successful ConvertKit submission.
-    (function () {
-      function showSuccess(form) {
-        var panel = document.createElement('div');
-        panel.className = 'form-success';
-        panel.innerHTML = '<div class="check">✓</div>' +
-          '<h4>Thank you for subscribing!</h4>' +
-          '<p>We will keep you updated and let you know as soon as we go live.</p>';
-        form.parentNode.replaceChild(panel, form);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graphicly — Create graphics by chatting. Launching soon.</title>
+    <meta
+      name="description"
+      content="Graphicly is your AI graphics designer. Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life brand-aligned, in seconds. Join the list and be the first to know when we go live."
+    />
+    <meta
+      name="keywords"
+      content="AI design partner, design by chatting, conversational design, brand kit, carousels, scientific equations, multilingual design"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.graphicly.ai/" />
+    <meta property="og:title" content="Graphicly — Create graphics by chatting" />
+    <meta
+      property="og:description"
+      content="Your AI graphics designer. Describe what you need and watch it come to life — brand-aligned, in seconds. Join the list and be the first to know when we go live."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://www.graphicly.ai/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-subtle: #f8f9fc;
+        --bg-muted: #f1f4f9;
+        --text-dark: #0a1628;
+        --text-main: #374151;
+        --text-muted: #6b7280;
+        --text-soft: #9ca3af;
+        --border: rgba(10,22,40,0.08);
+        --border-mid: rgba(10,22,40,0.14);
+
+        --grad-purple: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        --grad-pink:   linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+        --grad-blue:   linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        --grad-orange: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+        --grad-violet: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        --grad-teal:   linear-gradient(135deg, #0891b2 0%, #10b981 100%);
+        --grad-spectrum: linear-gradient(135deg,#6366f1 0%,#8b5cf6 20%,#ec4899 45%,#f43f5e 60%,#f97316 80%,#fbbf24 100%);
+
+        --shadow-sm: 0 1px 3px rgba(10,22,40,.06), 0 1px 2px rgba(10,22,40,.04);
+        --shadow-md: 0 8px 24px rgba(10,22,40,.07), 0 2px 6px rgba(10,22,40,.04);
+        --shadow-lg: 0 24px 56px rgba(10,22,40,.10), 0 4px 12px rgba(10,22,40,.05);
+        --shadow-xl: 0 40px 80px rgba(10,22,40,.12);
+
+        --radius-sm: 10px;
+        --radius-md: 16px;
+        --radius-lg: 22px;
+        --radius-xl: 30px;
+
+        --max-w: 1200px;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
       }
 
-      document.querySelectorAll('form.js-subscribe-form').forEach(function (form) {
-        form.addEventListener('submit', function (e) {
-          var input = form.querySelector('input[name="email_address"]');
-          if (!input || !input.value || !input.checkValidity()) return;
-          e.preventDefault();
-          var fd = new FormData(form);
-          fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
-            .finally(function () { showSuccess(form); });
-        });
-      });
-    })();
-  </script>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; color: var(--text-dark); line-height: 1.12; letter-spacing: -0.02em; }
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
 
-  <footer>
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span class="logo-mark" style="width:26px; height:26px; border-radius:7px; font-size:14px;">G</span>
-        <span>© 2026 Graphicly</span>
+      .container { max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+
+      .grad-text {
+        background: var(--grad-spectrum);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+
+      /* ========== NAV ========== */
+      nav {
+        position: sticky; top: 0; z-index: 50;
+        background: rgba(255,255,255,.78);
+        backdrop-filter: saturate(180%) blur(14px);
+        -webkit-backdrop-filter: saturate(180%) blur(14px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+      .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; color: var(--text-dark); }
+      .logo-mark {
+        width: 34px; height: 34px; border-radius: 10px;
+        background: var(--grad-spectrum);
+        box-shadow: 0 6px 18px -6px rgba(139,92,246,.5);
+        display: grid; place-items: center;
+        color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 19px;
+        letter-spacing: -0.02em;
+      }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
+      .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-main); transition: color .2s var(--ease); }
+      .nav-links a:hover { color: var(--text-dark); }
+      .nav-cta {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 10px 18px; border-radius: 999px;
+        background: var(--text-dark); color: #fff;
+        font-weight: 600; font-size: 14px;
+        transition: transform .2s var(--ease);
+      }
+      .nav-cta:hover { transform: translateY(-1px); }
+      @media (max-width: 720px) { .nav-links { display: none; } }
+
+      /* ========== HERO ========== */
+      .hero {
+        position: relative;
+        padding: clamp(20px, 2.5vw, 36px) 0 clamp(28px, 3.5vw, 48px);
+        overflow: hidden;
+        min-height: calc(100vh - 72px);
+        display: flex; align-items: center;
+      }
+      .hero::before {
+        content: ""; position: absolute; inset: -10% -10% auto -10%; height: 55%; pointer-events: none; z-index: 0;
+        background:
+          radial-gradient(40% 50% at 15% 0%, rgba(139,92,246,.12), transparent 70%),
+          radial-gradient(40% 50% at 85% 5%, rgba(244,63,94,.10), transparent 70%);
+        -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
+                mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
+      }
+      .hero-center {
+        position: relative; z-index: 1;
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        max-width: 820px; margin: 0 auto;
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 7px 14px; border-radius: 999px;
+        background: #fff; border: 1px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        font-size: 12px; font-weight: 600; color: var(--text-dark);
+        letter-spacing: .04em; text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.18); animation: pulse 2s infinite; }
+      @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.25); opacity: .7; } }
+
+      h1.hero-title {
+        font-size: clamp(38px, 5.6vw, 68px); font-weight: 800;
+        margin-bottom: 14px;
+      }
+      .hero-tagline {
+        font-size: clamp(15px, 1.3vw, 17px); color: var(--text-muted);
+        max-width: 620px; margin: 0 auto 26px; line-height: 1.55;
+      }
+      .form-label {
+        font-family: 'Outfit', sans-serif; font-weight: 700;
+        font-size: clamp(18px, 1.6vw, 22px); color: var(--text-dark);
+        margin-bottom: 12px;
+      }
+      .hero-more {
+        margin-top: 22px; max-width: 640px;
+        display: flex; flex-direction: column; gap: 8px;
+        text-align: center;
+      }
+      .hero-more p { color: var(--text-muted); font-size: 14.5px; line-height: 1.6; }
+      .hero-more p strong { color: var(--text-dark); font-weight: 600; }
+
+      /* Form */
+      .form-card {
+        background: #fff; border: 1px solid var(--border);
+        border-radius: 18px; padding: 8px;
+        box-shadow: var(--shadow-md);
+        max-width: 540px; width: 100%; margin: 0 auto;
+        display: flex; flex-direction: column; align-items: stretch;
+        transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
+      }
+      .form-card:focus-within { box-shadow: var(--shadow-lg); border-color: var(--border-mid); }
+      .form-card .formkit-fields { display: flex; gap: 8px; align-items: center; }
+      .form-card .formkit-field { flex: 1; min-width: 0; display: flex; align-items: center; }
+      .form-card .formkit-input {
+        flex: 1; min-width: 0;
+        background: transparent; border: 0; outline: none;
+        padding: 14px 18px; font-size: 16px; font-family: inherit; color: var(--text-dark);
+      }
+      .form-card .formkit-input::placeholder { color: var(--text-soft); }
+      .form-card .formkit-submit {
+        border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+        padding: 14px 22px; border-radius: 12px;
+        font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px;
+        color: #fff; letter-spacing: -0.01em;
+        background: var(--grad-spectrum);
+        background-size: 200% 200%;
+        transition: background-position .5s var(--ease), transform .15s var(--ease);
+        white-space: nowrap;
+      }
+      .form-card .formkit-submit:hover { background-position: 100% 0; }
+      .form-card .formkit-submit:active { transform: scale(.98); }
+      .form-meta {
+        display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 18px;
+        font-size: 13px; color: var(--text-muted);
+      }
+      .avatars { display: flex; }
+      .avatars span { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; box-shadow: var(--shadow-sm); }
+      .avatars span:nth-child(1){ background: var(--grad-purple); margin-left: 0; }
+      .avatars span:nth-child(2){ background: var(--grad-pink); }
+      .avatars span:nth-child(3){ background: var(--grad-blue); }
+      .avatars span:nth-child(4){ background: var(--grad-orange); }
+      .formkit-alert { list-style: none; padding: 0; margin: 12px 4px 0; font-size: 14px; text-align: center; }
+      .formkit-alert:empty { display: none; }
+      .formkit-alert-error { color: #e11d48; }
+      .formkit-alert-success { color: #059669; }
+
+      /* ========== CHAT MOCK (inside How it works) ========== */
+      .chat-wrap { position: relative; max-width: min(420px, 92vw); margin: 48px auto 0; }
+      .chat-mock {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+        width: 100%;
+      }
+      .chat-head {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-subtle);
+      }
+      .chat-dots { display: flex; gap: 5px; }
+      .chat-dots span { width: 9px; height: 9px; border-radius: 50%; background: #e5e7eb; }
+      .chat-dots span:nth-child(1) { background: #f87171; }
+      .chat-dots span:nth-child(2) { background: #fbbf24; }
+      .chat-dots span:nth-child(3) { background: #34d399; }
+      .chat-title { font-size: 12px; font-weight: 600; color: var(--text-dark); margin-left: 6px; }
+      .chat-badge {
+        margin-left: auto; font-size: 10px; font-weight: 600; color: #fff;
+        padding: 3px 8px; border-radius: 999px; background: var(--grad-spectrum);
+        letter-spacing: .04em; text-transform: uppercase;
+      }
+      .chat-body {
+        padding: 18px 16px;
+        display: flex; flex-direction: column; gap: 12px;
+        min-height: 260px;
+        background:
+          radial-gradient(120% 80% at 100% 0%, rgba(139,92,246,.05), transparent 60%),
+          radial-gradient(120% 80% at 0% 100%, rgba(236,72,153,.05), transparent 60%),
+          #fff;
+      }
+      .msg { display: flex; gap: 9px; max-width: 90%; }
+      .msg .avatar {
+        width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
+        display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff;
+      }
+      .msg.user .avatar { background: var(--grad-blue); }
+      .msg.ai .avatar { background: var(--grad-spectrum); }
+      .bubble {
+        padding: 9px 12px; border-radius: 12px;
+        font-size: 13px; line-height: 1.45;
+        background: var(--bg-muted); color: var(--text-dark);
+      }
+      .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+      .msg.user .bubble { background: var(--text-dark); color: #fff; border-bottom-right-radius: 4px; }
+      .msg.ai .bubble { border-bottom-left-radius: 4px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+      .chat-input {
+        border-top: 1px solid var(--border);
+        padding: 10px 12px;
+        display: flex; align-items: center; gap: 9px;
+        background: #fff;
+      }
+      .chat-input input {
+        flex: 1; border: 0; outline: none; font-size: 13px; font-family: inherit; color: var(--text-dark);
+        background: transparent;
+      }
+      .chat-input button {
+        width: 30px; height: 30px; border-radius: 9px; border: 0;
+        background: var(--grad-spectrum); color: #fff; cursor: pointer;
+        display: grid; place-items: center; font-size: 13px;
+      }
+
+      /* ========== SECTIONS ========== */
+      section { padding: clamp(64px, 8vw, 110px) 0; }
+      .section-eyebrow { display: block; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: transparent; background: var(--grad-spectrum); -webkit-background-clip: text; background-clip: text; margin: 0 auto 14px; }
+      .section-title { font-size: clamp(32px, 4.2vw, 52px); font-weight: 800; max-width: 820px; margin: 0 auto 18px; text-align: center; }
+      .section-sub { font-size: clamp(16px, 1.3vw, 18px); color: var(--text-muted); max-width: 640px; margin: 0 auto 56px; text-align: center; }
+
+      /* Comparison — The Graphicly way vs Old way */
+      .compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 920px; margin: 0 auto; }
+      .compare-card {
+        position: relative; overflow: hidden;
+        background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 26px; box-shadow: var(--shadow-sm);
+        display: flex; flex-direction: column;
+      }
+      .compare-card.good::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--grad-spectrum); }
+      .compare-card.bad::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-mid); }
+      .compare-card h3 { font-size: clamp(19px, 2vw, 23px); font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+      .compare-card.good h3 { color: var(--text-dark); }
+      .compare-card.bad h3 { color: var(--text-muted); }
+      .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+      .compare-card li { display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; color: var(--text-dark); line-height: 1.5; }
+      .compare-card li .icon {
+        width: 21px; height: 21px; border-radius: 6px; flex-shrink: 0;
+        display: grid; place-items: center; font-size: 12px; font-weight: 700;
+      }
+      .compare-card.good li .icon { background: var(--grad-spectrum); color: #fff; }
+      .compare-card.bad li .icon { background: var(--bg-muted); color: var(--text-muted); }
+      @media (max-width: 720px) {
+        .compare-grid { grid-template-columns: 1fr; }
+      }
+
+      /* How it works — centered intro */
+      .how-head { text-align: center; }
+
+      /* Chat showcase row: chat + supporting copy */
+      .chat-showcase {
+        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        gap: 40px; align-items: center;
+        max-width: 980px; margin: 56px auto 0;
+        text-align: left;
+      }
+      .chat-showcase .chat-wrap { margin: 0; max-width: 400px; }
+      .chat-side h3 {
+        font-size: clamp(22px, 2.2vw, 29px); font-weight: 800;
+        margin-bottom: 12px; letter-spacing: -0.02em;
+      }
+      .chat-side p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
+      .chat-side ul { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 9px; }
+      .chat-side ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; color: var(--text-dark); }
+      .chat-side ul li::before {
+        content: "✦"; color: transparent; background: var(--grad-spectrum);
+        -webkit-background-clip: text; background-clip: text;
+        font-weight: 800; font-size: 15px; line-height: 1.4;
+      }
+      @media (max-width: 860px) {
+        .chat-showcase { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+        .chat-showcase .chat-wrap { margin: 0 auto; }
+        .chat-side ul li { justify-content: center; text-align: left; }
+      }
+
+      /* Success state */
+      .form-success {
+        background: #fff; border: 1px solid var(--border); border-radius: 18px;
+        padding: 28px 24px; max-width: 540px; margin: 0 auto;
+        box-shadow: var(--shadow-md); text-align: center;
+      }
+      .form-success .check {
+        width: 52px; height: 52px; border-radius: 50%;
+        background: var(--grad-spectrum); color: #fff;
+        display: grid; place-items: center; font-size: 24px; font-weight: 700;
+        margin: 0 auto 14px;
+      }
+      .form-success h4 { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+      .form-success p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+
+      /* 3 steps */
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .step {
+        background: #fff; border: 1px solid var(--border);
+        border-radius: var(--radius-lg); padding: 36px 30px 32px;
+        transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+      }
+      .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+      .step .num {
+        font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(72px, 7vw, 96px);
+        line-height: 0.9; letter-spacing: -0.04em;
+        background: var(--grad-spectrum);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        margin-bottom: 18px; display: block;
+      }
+      .step:nth-child(1) .num { background: var(--grad-purple); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .step:nth-child(2) .num { background: var(--grad-pink); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .step:nth-child(3) .num { background: var(--grad-orange); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .step h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+      .step p { color: var(--text-muted); font-size: 15px; }
+
+      /* Features bento — equal-sized tiles */
+      .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .card {
+        background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+        padding: 30px 28px; position: relative; overflow: hidden;
+        display: flex; flex-direction: column;
+        min-height: 240px;
+        transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+      }
+      .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+      .card .icon {
+        width: 44px; height: 44px; border-radius: 12px;
+        display: grid; place-items: center; color: #fff; font-size: 18px;
+        margin-bottom: 18px;
+      }
+      .card h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+      .card p { color: var(--text-muted); font-size: 14.5px; }
+
+      .ic-1 { background: var(--grad-purple); }
+      .ic-2 { background: var(--grad-pink); }
+      .ic-3 { background: var(--grad-blue); }
+      .ic-4 { background: var(--grad-orange); }
+      .ic-5 { background: var(--grad-violet); }
+      .ic-6 { background: var(--grad-teal); }
+      .ic-7 { background: var(--grad-spectrum); }
+
+      /* AI power grid */
+      .ai-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+      .ai-grid .card { min-height: 200px; }
+      @media (max-width: 960px) {
+        .ai-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 560px) {
+        .ai-grid { grid-template-columns: 1fr; }
+      }
+
+      .lang-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+      .lang-chips span {
+        padding: 8px 14px; border-radius: 999px; background: var(--bg-muted);
+        border: 1px solid var(--border); font-size: 13px; font-weight: 500; color: var(--text-dark);
+        font-family: 'Outfit', sans-serif;
+      }
+      .lang-chips span.ar { font-size: 16px; }
+
+      /* Template grid mini */
+      .tpl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 22px; }
+      .tpl {
+        aspect-ratio: 1/1; border-radius: 12px; position: relative; overflow: hidden;
+        display: grid; place-items: center; color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12px;
+        text-align: center; padding: 8px; line-height: 1.15;
+      }
+      .tpl:nth-child(1) { background: var(--grad-purple); }
+      .tpl:nth-child(2) { background: var(--grad-pink); }
+      .tpl:nth-child(3) { background: var(--grad-blue); }
+      .tpl:nth-child(4) { background: var(--grad-orange); }
+      .tpl:nth-child(5) { background: var(--grad-violet); }
+      .tpl:nth-child(6) { background: var(--grad-teal); }
+      .tpl:nth-child(7) { background: var(--grad-spectrum); }
+      .tpl:nth-child(8) { background: linear-gradient(135deg, #0a1628, #374151); }
+
+      /* Export chips */
+      .export-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+      .export-chips .pill {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 9px 14px; border-radius: 10px; background: var(--bg-muted);
+        border: 1px solid var(--border);
+        font-family: 'Fira Code', monospace; font-size: 12.5px; font-weight: 500; color: var(--text-dark);
+      }
+      .export-chips .pill::before {
+        content: ""; width: 8px; height: 8px; border-radius: 2px;
+      }
+      .export-chips .pill:nth-child(1)::before { background: #f97316; }
+      .export-chips .pill:nth-child(2)::before { background: #3b82f6; }
+      .export-chips .pill:nth-child(3)::before { background: #ec4899; }
+
+      /* Carousel mock */
+      .carousel-mock { display: flex; gap: 8px; margin-top: 22px; overflow: hidden; }
+      .slide {
+        flex: 1; aspect-ratio: 4/5; border-radius: 12px;
+        display: grid; place-items: end; padding: 12px;
+        color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11px;
+      }
+      .slide:nth-child(1) { background: var(--grad-violet); }
+      .slide:nth-child(2) { background: var(--grad-pink); }
+      .slide:nth-child(3) { background: var(--grad-orange); }
+      .slide:nth-child(4) { background: var(--grad-blue); }
+      .slide:nth-child(5) { background: var(--grad-teal); }
+
+      /* Equation mock */
+      .eq-mock {
+        margin-top: 20px; padding: 22px; border-radius: 14px;
+        background: var(--bg-subtle); border: 1px solid var(--border);
+        font-family: 'Fira Code', monospace; font-size: 15px; color: var(--text-dark);
+        text-align: center;
+      }
+      .eq-mock .big { font-size: 22px; display: block; margin: 8px 0; }
+
+      /* ========== FAQ ========== */
+      .faq-wrap { text-align: center; }
+      .faq-wrap .section-title, .faq-wrap .section-sub { margin-left: auto; margin-right: auto; }
+      .faq-list {
+        display: flex; flex-direction: column; gap: 14px;
+        max-width: 760px; margin: 0 auto; text-align: left;
+      }
+      details {
+        background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md);
+        padding: 20px 24px;
+        transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+      }
+      details[open] { border-color: var(--border-mid); box-shadow: var(--shadow-md); }
+      summary {
+        list-style: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: space-between;
+        font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; color: var(--text-dark);
+      }
+      summary::-webkit-details-marker { display: none; }
+      summary::after {
+        content: "+"; font-size: 24px; font-weight: 400; color: var(--text-muted);
+        transition: transform .25s var(--ease);
+      }
+      details[open] summary::after { transform: rotate(45deg); }
+      details p { margin-top: 12px; color: var(--text-muted); font-size: 15px; }
+
+      /* Templates showcase */
+      .tpl-showcase { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 8px; }
+      .tpl-showcase .tpl { aspect-ratio: 4/5; }
+      .tpl-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; justify-content: center; }
+      .tpl-tags span {
+        padding: 8px 14px; border-radius: 999px; background: #fff;
+        border: 1px solid var(--border); font-size: 13px; font-weight: 600; color: var(--text-dark);
+        font-family: 'Outfit', sans-serif; box-shadow: var(--shadow-sm);
+      }
+      @media (max-width: 720px) {
+        .tpl-showcase { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      /* ========== CTA — light, matches hero ========== */
+      .cta-section {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: clamp(40px, 5vw, 64px) clamp(24px, 4vw, 56px);
+        text-align: center; color: var(--text-dark);
+        position: relative; overflow: hidden;
+        margin-bottom: 56px;
+        box-shadow: var(--shadow-md);
+      }
+      .cta-section > * { position: relative; z-index: 1; }
+      .cta-section h2 { color: var(--text-dark); font-size: clamp(28px, 3.6vw, 44px); margin-bottom: 12px; }
+      .cta-section .cta-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; color: var(--text-dark); margin-bottom: 12px; }
+      .cta-section p { color: var(--text-muted); font-size: 16px; max-width: 560px; margin: 0 auto 28px; }
+      .cta-section .form-card { margin: 0 auto; }
+
+      /* ========== FOOTER ========== */
+      footer {
+        padding: 32px 0 48px;
+        border-top: 1px solid var(--border);
+        display: flex; justify-content: space-between; align-items: center;
+        flex-wrap: wrap; gap: 16px;
+        color: var(--text-muted); font-size: 13.5px;
+      }
+
+      /* ========== RESPONSIVE ========== */
+      @media (max-width: 960px) {
+        .chat-wrap { max-width: 100%; }
+        .steps { grid-template-columns: 1fr; }
+        .bento { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 560px) {
+        .form-card .formkit-fields { flex-direction: column; }
+        .form-card .formkit-submit { padding: 14px 22px; }
+        .bento { grid-template-columns: 1fr; }
+        .card { min-height: 0; }
+        .tpl-grid { grid-template-columns: repeat(2, 1fr); }
+        .nav-cta { padding: 9px 14px; font-size: 13px; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="container nav-inner">
+        <a href="/" class="logo"><span class="logo-mark">G</span> Graphicly</a>
+        <div class="nav-links">
+          <a href="#how">How it works</a>
+          <a href="#ai-power">Features</a>
+          <a href="#templates">Templates</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a href="#join" class="nav-cta">Subscribe →</a>
       </div>
-      <a href="mailto:hello@graphicly.ai">hello@graphicly.ai</a>
-    </div>
-  </footer>
+    </nav>
 
-</body>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="container">
+        <div class="hero-center">
+          <span class="eyebrow"><span class="dot"></span> Launching soon</span>
+          <h1 class="hero-title">Create graphics<br />by <span class="grad-text">chatting.</span></h1>
+          <p class="hero-tagline">
+            <strong style="color:var(--text-dark);font-weight:600;">Graphicly is your AI graphics designer.</strong>
+            Describe what you need — a poster, a carousel, a brand kit, a campaign — and watch it come to life
+            brand-aligned, in seconds.
+          </p>
+
+          <div class="form-label" id="join">Join our mailing list</div>
+          <form
+            action="https://app.kit.com/forms/9586058/subscriptions"
+            class="form-card seva-form formkit-form js-subscribe-form"
+            method="post"
+            data-sv-form="9586058"
+            data-uid="6cca547372"
+            data-format="inline"
+            data-version="5"
+            data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing! We will keep you updated and let you know as soon as we go live.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":""},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
+            min-width="400 500 600 700 800"
+          >
+            <div data-element="fields" class="seva-fields formkit-fields">
+              <div class="formkit-field">
+                <input
+                  class="formkit-input"
+                  name="email_address"
+                  aria-label="Email address"
+                  placeholder="Your email"
+                  required
+                  type="email"
+                />
+              </div>
+              <button data-element="submit" class="formkit-submit">
+                <div class="formkit-spinner">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <span>Subscribe</span>
+              </button>
+            </div>
+            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+          </form>
+
+          <div class="hero-more">
+            <p>Be the first to know when we go live.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3 STEPS -->
+    <section id="how">
+      <div class="container">
+        <div class="how-head">
+          <span class="section-eyebrow">How it works</span>
+          <h2 class="section-title">From idea to graphic in <span class="grad-text">3 simple steps.</span></h2>
+          <p class="section-sub">
+            Skip complex software. Skip the tutorials. Iterate with Graphicly like you would with a designer — in plain
+            words.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <span class="num">1</span>
+            <h3>Pick a starting point</h3>
+            <p>Start from a blank canvas or one of our ready-made templates. Either way, just bring your idea.</p>
+          </div>
+          <div class="step">
+            <span class="num">2</span>
+            <h3>Just describe it</h3>
+            <p>Type what you want, in any language. "A bold post for our weekend sale, playful headline." That's it.</p>
+          </div>
+          <div class="step">
+            <span class="num">3</span>
+            <h3>Refine, export, ship</h3>
+            <p>Tweak with another sentence. Generate variations. Export as JPG, PNG or PDF. Done.</p>
+          </div>
+        </div>
+
+        <!-- CHAT SHOWCASE -->
+        <div class="chat-showcase">
+          <div class="chat-wrap">
+            <aside class="chat-mock" aria-hidden="true">
+              <div class="chat-head">
+                <div class="chat-dots"><span></span><span></span><span></span></div>
+                <div class="chat-title">Graphicly · New design</div>
+                <span class="chat-badge">Live</span>
+              </div>
+              <div class="chat-body">
+                <div class="msg user">
+                  <div class="avatar">M</div>
+                  <div class="bubble">
+                    Create a 5-slide Instagram carousel on "3 habits that boost focus" — use our brand colors.
+                  </div>
+                </div>
+                <div class="msg ai">
+                  <div class="avatar">G</div>
+                  <div class="bubble">
+                    Done ✦ 5 slides at 1080×1350, brand-aligned. Cover + 3 habits + CTA. Want to tweak anything?
+                  </div>
+                </div>
+                <div class="msg user">
+                  <div class="avatar">M</div>
+                  <div class="bubble">Make the cover headline bolder and swap slide 3's layout to a big quote.</div>
+                </div>
+                <div class="msg ai">
+                  <div class="avatar">G</div>
+                  <div class="bubble">Updated. Bolder cover, slide 3 is now a quote layout. Anything else?</div>
+                </div>
+                <div class="msg user">
+                  <div class="avatar">M</div>
+                  <div class="bubble">
+                    Change the CTA text on slide 5 to "Save this for later" and warm up the color palette.
+                  </div>
+                </div>
+                <div class="msg ai">
+                  <div class="avatar">G</div>
+                  <div class="bubble">
+                    Done. New CTA in place, warmer palette applied across all 5 slides. Ready to export as PNG or PDF.
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input">
+                <input type="text" placeholder="Describe your next design…" />
+                <button aria-label="Send">→</button>
+              </div>
+            </aside>
+          </div>
+
+          <div class="chat-side">
+            <h3>Design at the <span class="grad-text">speed of thought.</span></h3>
+            <p>
+              Graphicly works the way you think. Start with a single sentence, then refine through conversation — change
+              the headline, swap a layout, warm up the palette, generate more variations. No menus to learn, no layers
+              to untangle.
+            </p>
+            <ul>
+              <li>Spin up carousels, posts, ads, and presentations from a prompt</li>
+              <li>Edit copy, colors, and layouts with follow-up instructions</li>
+              <li>Stay brand-aligned automatically across every output</li>
+              <li>Export as JPG, PNG or PDF — ready to ship</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE THE POWER OF OUR AI -->
+    <section id="ai-power">
+      <div class="container">
+        <span class="section-eyebrow">Experience the power of our AI</span>
+        <h2 class="section-title">Describe it. See it. <span class="grad-text">Post it.</span></h2>
+        <p class="section-sub">
+          From a single sentence to a complete design — Graphicly handles the details so you don't have to.
+        </p>
+
+        <div class="ai-grid">
+          <div class="card">
+            <div class="icon ic-1">✍️</div>
+            <h3>Tell as little or as much</h3>
+            <p>
+              Share a rough idea or a full brief. Graphicly understands context and turns your words into a polished
+              visual.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-2">∑</div>
+            <h3>Scientific & complex notation</h3>
+            <p>Math equations, formulas, technical symbols, and complex scripts render cleanly inside every design.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-3">🎨</div>
+            <h3>Your content, perfectly placed</h3>
+            <p>
+              Watch your text, images, and data flow into templates automatically — aligned, styled, and ready to share.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-4">A</div>
+            <h3>Huge font library</h3>
+            <p>
+              Access a wide range of font styles — from clean modern typefaces to expressive display fonts for every
+              mood.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES BENTO -->
+    <section id="features" style="background: var(--bg-subtle);">
+      <div class="container">
+        <span class="section-eyebrow">The Graphicly advantage</span>
+        <h2 class="section-title">Turn Ideas Into Graphics — <span class="grad-text">Just by Talking.</span></h2>
+        <p class="section-sub">
+          Made for creators, founders, marketers, small business owners, LinkedIn scientific content creators, religious
+          content creators who need beautiful, ready-to-use, brand-aligned graphics — fast.
+        </p>
+
+        <div class="bento">
+          <div class="card">
+            <div class="icon ic-1">💬</div>
+            <h3>Just describe it</h3>
+            <p>
+              Type what you want. Iterate like you would with a designer — in plain words. "Make it bolder." "Swap the
+              headline." Done in seconds.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-2">✦</div>
+            <h3>Brand-aligned, always</h3>
+            <p>Lock your colors, fonts and logos once. Every output stays unmistakably you — across every channel.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-5">⌘</div>
+            <h3>Engaging carousels</h3>
+            <p>
+              Scroll-stopping LinkedIn and Instagram carousels in one prompt — fully formatted, slide by slide, ready to
+              post.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-6">⚡</div>
+            <h3>Bulk variations</h3>
+            <p>Need 5 versions of one post? 10 posts from one template? Ask once — get a whole batch, instantly.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-3">🖼</div>
+            <h3>Bring your own assets</h3>
+            <p>
+              Drop in photos, product shots, illustrations or paste a link. Graphicly composes them into the design for
+              you.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon ic-4">↧</div>
+            <h3>Multiple export files</h3>
+            <p>One click to JPG, PNG or crisp vector PDF. Ready for web, social, print or presentations.</p>
+            <div class="export-chips">
+              <span class="pill">JPG</span>
+              <span class="pill">PNG</span>
+              <span class="pill">PDF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMPLATES SHOWCASE -->
+    <section id="templates">
+      <div class="container">
+        <span class="section-eyebrow">Templates</span>
+        <h2 class="section-title">Start blank, or pick a <span class="grad-text">ready-made template.</span></h2>
+        <p class="section-sub">
+          A growing library of unique, engaging templates — continuously updated, covering every purpose, every
+          audience, every language. Just bring your content; Graphicly does the design.
+        </p>
+
+        <div class="tpl-tags">
+          <span>Continuously updated</span>
+          <span>Any language</span>
+          <span>Unique, engaging designs</span>
+          <span>Built for every purpose</span>
+          <span>Complex scientific equations</span>
+          <span>Perfect for LinkedIn science content</span>
+          <span>Marketing · Education · Personal brand</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE GRAPHICLY WAY -->
+    <section id="graphicly-way">
+      <div class="container">
+        <span class="section-eyebrow">The Graphicly way</span>
+        <h2 class="section-title">
+          The Graphicly way to do <span class="grad-text">graphic design and static content creation</span>
+        </h2>
+        <p class="section-sub">Why wrestle with design tools when you can simply describe what you want?</p>
+
+        <div class="compare-grid">
+          <div class="compare-card good">
+            <h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="grad-text">The Graphicly way</span>
+            </h3>
+            <ul>
+              <li><span class="icon">✓</span> Describe what you want in plain language</li>
+              <li><span class="icon">✓</span> Iterate instantly with follow-up messages</li>
+              <li><span class="icon">✓</span> Stay brand-aligned automatically across every output</li>
+              <li><span class="icon">✓</span> Export ready-to-post files in seconds</li>
+            </ul>
+          </div>
+          <div class="compare-card bad">
+            <h3>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              The Old Way
+            </h3>
+            <ul>
+              <li><span class="icon">✕</span> Start from a blank canvas or rigid template</li>
+              <li><span class="icon">✕</span> Spend hours in menus, layers, and toolbars</li>
+              <li><span class="icon">✕</span> Manually apply colors, fonts, and assets every time</li>
+              <li><span class="icon">✕</span> Switch between multiple tools to finalize and export</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ — centered -->
+    <section id="faq" style="background: var(--bg-subtle);">
+      <div class="container faq-wrap">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">Questions, <span class="grad-text">answered.</span></h2>
+        <p class="section-sub">If something is still unclear, email us and we'll be happy to help.</p>
+
+        <div class="faq-list">
+          <details open>
+            <summary>When is Graphicly launching?</summary>
+            <p>Graphicly is currently in pre-launch. Join our email list and we'll notify you as soon as we go live.</p>
+          </details>
+          <details>
+            <summary>What is Graphicly?</summary>
+            <p>
+              Graphicly is an AI-powered design platform that turns ideas into professional visual content through
+              simple conversation.
+            </p>
+          </details>
+          <details>
+            <summary>How does Graphicly work?</summary>
+            <p>
+              Simply describe what you want to create. Graphicly generates the design, lets you refine it through
+              conversation, and exports it in ready-to-use formats.
+            </p>
+          </details>
+          <details>
+            <summary>Do I need any design skills?</summary>
+            <p>
+              No. If you can describe an idea, you can create a design. There are no complicated tools, layers, or
+              design software to learn.
+            </p>
+          </details>
+          <details>
+            <summary>What can I create with Graphicly?</summary>
+            <p>
+              Social media posts, carousels, ads, banners, presentations, educational content, business graphics, and
+              much more.
+            </p>
+          </details>
+          <details>
+            <summary>Can I start from templates?</summary>
+            <p>
+              Yes. Start from a blank canvas or choose from a growing library of professionally designed templates that
+              can be customized through conversation.
+            </p>
+          </details>
+          <details>
+            <summary>Can I generate multiple variations at once?</summary>
+            <p>
+              Yes. Generate multiple versions of a design, create content variations, or produce entire batches of
+              graphics from a single prompt.
+            </p>
+          </details>
+          <details>
+            <summary>Does Graphicly support multiple languages?</summary>
+            <p>
+              Yes. You can create designs in virtually any language, including multilingual content and complex writing
+              systems.
+            </p>
+          </details>
+          <details>
+            <summary>Can it handle complex content and typography?</summary>
+            <p>
+              Yes. Graphicly supports complex scripts, right-to-left languages, scientific equations, mathematical
+              notation, technical content, and structured layouts.
+            </p>
+          </details>
+          <details>
+            <summary>Can I use my own branding and assets?</summary>
+            <p>
+              Yes. Upload your logos, images, brand colors, fonts, and other assets to keep every design consistent with
+              your brand.
+            </p>
+          </details>
+          <details>
+            <summary>What formats can I export?</summary>
+            <p>Designs can be exported as JPG, PNG, and PDF for social media, web, presentations, and print.</p>
+          </details>
+          <details>
+            <summary>Will new templates be added over time?</summary>
+            <p>
+              Absolutely. Our template library will continue expanding with new templates, categories, industries, and
+              use cases.
+            </p>
+          </details>
+          <details>
+            <summary>How much will Graphicly cost?</summary>
+            <p>
+              Pricing will be announced closer to launch. Our goal is to make Graphicly accessible and affordable for
+              creators, marketers, businesses, and agencies.
+            </p>
+          </details>
+          <details>
+            <summary>How will I know when Graphicly launches?</summary>
+            <p>Join the email list and we'll send you an update as soon as Graphicly becomes available.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section>
+      <div class="container">
+        <div class="cta-section">
+          <h2>Be the first to <span class="grad-text">know when we go live.</span></h2>
+          <p>Join our mailing list and we'll let you know the moment Graphicly opens its doors.</p>
+
+          <form
+            action="https://app.kit.com/forms/9586058/subscriptions"
+            class="form-card seva-form formkit-form js-subscribe-form"
+            method="post"
+            data-sv-form="9586058"
+            data-uid="6cca547372"
+            data-format="inline"
+            data-version="5"
+            data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing! We will keep you updated and let you know as soon as we go live.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":""},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
+          >
+            <div data-element="fields" class="seva-fields formkit-fields">
+              <div class="formkit-field">
+                <input
+                  class="formkit-input"
+                  name="email_address"
+                  aria-label="Email address"
+                  placeholder="Your email"
+                  required
+                  type="email"
+                />
+              </div>
+              <button data-element="submit" class="formkit-submit">
+                <div class="formkit-spinner">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <span>Subscribe</span>
+              </button>
+            </div>
+            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Show a clear success state after a successful ConvertKit submission.
+      (function () {
+        function showSuccess(form) {
+          var panel = document.createElement('div');
+          panel.className = 'form-success';
+          panel.innerHTML = '<div class="check">✓</div>' +
+            '<h4>Thank you for subscribing!</h4>' +
+            '<p>We will keep you updated and let you know as soon as we go live.</p>';
+          form.parentNode.replaceChild(panel, form);
+        }
+
+        document.querySelectorAll('form.js-subscribe-form').forEach(function (form) {
+          form.addEventListener('submit', function (e) {
+            var input = form.querySelector('input[name="email_address"]');
+            if (!input || !input.value || !input.checkValidity()) return;
+            e.preventDefault();
+            var fd = new FormData(form);
+            fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
+              .finally(function () { showSuccess(form); });
+          });
+        });
+      })();
+    </script>
+
+    <footer>
+      <div
+        class="container"
+        style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;"
+      >
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="logo-mark" style="width:26px; height:26px; border-radius:7px; font-size:14px;">G</span>
+          <span>© 2026 Graphicly</span>
+        </div>
+        <a href="mailto:hello@graphicly.ai">hello@graphicly.ai</a>
+      </div>
+    </footer>
+  </body>
 </html>
